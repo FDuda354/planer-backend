@@ -41,8 +41,6 @@ public class LostPasswordService {
     }
 
     private String createMessage(String hashLink) {
-        System.out.println("===================================");
-        System.out.println(hashLink);
         return "Link to change your password" +
                 "\n\nClick: " +
                 "\n" + hashLink +

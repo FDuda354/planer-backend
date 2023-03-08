@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.dudios.planerbackend.task.model.Task;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -46,6 +48,10 @@ public class AppUser implements Serializable {
     private String image;
     private String hash;
     private LocalDateTime HashDate;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "userid")
+    private List<Task> tasks;
 
 
 }

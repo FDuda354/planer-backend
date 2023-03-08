@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset FDuda:3
+--changeset FDuda:2
 INSERT INTO users (id, username, password, enabled)
 VALUES (1, 'admin', '{bcrypt}$2a$10$upzXFsFUOClFRR69OMKF8eajGMRs0vhcSHqvNDKy9yfW45w7o9z6O', true),
 (2, 'filipduda9@wp.pl', '{bcrypt}$2a$10$upzXFsFUOClFRR69OMKF8eajGMRs0vhcSHqvNDKy9yfW45w7o9z6O', true);
