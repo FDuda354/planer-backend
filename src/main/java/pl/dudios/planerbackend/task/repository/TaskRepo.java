@@ -14,7 +14,5 @@ import java.util.Set;
 public interface TaskRepo extends JpaRepository<Task, Long>{
     Page<Task> findAllByUserId(Pageable pageable, Long userId);
 
-    List<Task> findAllByDeadline(LocalDateTime plusDays);
-
-    Set<Long> findAllUserIdByDeadline(LocalDateTime tommorow);
+    List<Task> findAllByDeadlineAndNotifyIsTrue(LocalDateTime plusDays);
 }

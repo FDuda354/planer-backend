@@ -22,10 +22,16 @@ public class TaskMailNotify {
     @Scheduled(cron = "0 0 23 * * *")
     @Transactional
     public void sendMail() {
-      taskRepo.findAllByDeadline(LocalDateTime.now().plusDays(1)).forEach(task -> {
-            String email = userRepo.findById(task.getUserId()).get().getUsername();
-          emailClientService.getSender().sendEmail(email, "Remind Task", createEmailMessage(task));
+
+        taskRepo.findAllByDeadlineAndNotifyIsTrue(LocalDateTime.now().plusDays(1)).forEach(task -> {
+            try {
+                String email = userRepo.findById(task.getUserId()).get().getUsername();
+                emailClientService.getSender().sendEmail(email, "Remind Task", createEmailMessage(task));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
+
     }
 
     private String createEmailMessage(Task task) {

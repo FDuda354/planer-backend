@@ -24,6 +24,7 @@ public class TaskService {
                 .name(task.getName())
                 .deadline(task.getDeadline())
                 .completed(false)
+                .notify(task.isNotify())
                 .userId(userId)
                 .build());
     }
@@ -33,6 +34,7 @@ public class TaskService {
         Task oldTask = taskRepo.findById(taskId).orElseThrow();
         oldTask.setName(task.getName());
         oldTask.setDeadline(task.getDeadline());
+        oldTask.setNotify(task.isNotify());
 
         return taskRepo.save(oldTask);
     }
@@ -43,5 +45,13 @@ public class TaskService {
 
     public void deleteTaskById(Long taskId) {
         taskRepo.deleteById(taskId);
+    }
+
+    @Transactional
+    public Task changeStatus(Long taskId, boolean completed) {
+        System.out.println(completed);
+        Task task = taskRepo.findById(taskId).orElseThrow();
+        task.setCompleted(completed);
+        return taskRepo.save(task);
     }
 }

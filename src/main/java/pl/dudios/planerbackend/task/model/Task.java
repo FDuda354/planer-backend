@@ -29,6 +29,7 @@ public class Task {
     private String name;
     private LocalDateTime deadline;
     private boolean completed;
+    private boolean notify;
     @Column(name = "userid")
     private Long userId;
 

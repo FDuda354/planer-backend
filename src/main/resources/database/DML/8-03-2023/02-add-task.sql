@@ -1,10 +1,10 @@
 --liquibase formatted sql
---changeset FDuda:1
-insert into tasks (name, deadline, completed, userId)
+--changeset FDuda:2
+insert into tasks (name, deadline, completed, notify ,userId)
 values
-('Task 1', '2020-01-01 00:00:00', false, 2),
-('Task 2', '2020-01-01 00:00:00', false, 2),
-('Task 3', '2020-01-01 00:00:00', true, 2),
-('Task 4', '2020-01-01 00:00:00', false, 2),
-('Task 5', '2020-01-01 00:00:00', true, 2),
-('Task 6', '2020-01-01 00:00:00', false, 2);
+('AAA', '2020-01-01 00:00:00', false,false, 2),
+('aaa', '2020-03-01 00:00:00', false,false, 2),
+('abab', '2020-04-01 00:00:00', true,false, 2),
+('ABABA', '2020-03-02 00:00:00', false,false, 2),
+('111', '2020-06-01 00:00:00', true,false, 2),
+('Zakupy', '2020-01-01 00:00:00', false,false, 2);
