@@ -12,7 +12,6 @@ import pl.dudios.planerbackend.security.user.model.dto.ChangePassword;
 import pl.dudios.planerbackend.security.user.model.dto.EmailObject;
 import pl.dudios.planerbackend.security.user.repository.UserRepo;
 
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 

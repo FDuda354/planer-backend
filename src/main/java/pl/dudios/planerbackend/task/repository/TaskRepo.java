@@ -8,10 +8,9 @@ import pl.dudios.planerbackend.task.model.Task;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Repository
-public interface TaskRepo extends JpaRepository<Task, Long>{
+public interface TaskRepo extends JpaRepository<Task, Long> {
     Page<Task> findAllByUserId(Pageable pageable, Long userId);
 
     List<Task> findAllByDeadlineAndNotifyIsTrue(LocalDateTime plusDays);

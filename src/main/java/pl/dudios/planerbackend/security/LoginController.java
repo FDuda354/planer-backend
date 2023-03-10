@@ -15,7 +15,6 @@ import pl.dudios.planerbackend.security.user.model.AppUserDetails;
 import pl.dudios.planerbackend.security.user.model.Role;
 import pl.dudios.planerbackend.security.user.repository.UserRepo;
 
-
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

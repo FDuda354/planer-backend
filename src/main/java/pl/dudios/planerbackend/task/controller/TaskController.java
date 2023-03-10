@@ -23,7 +23,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/tasks")
-    public Page<Task> getTasks(Pageable pageable,@AuthenticationPrincipal Long userId) {
+    public Page<Task> getTasks(Pageable pageable, @AuthenticationPrincipal Long userId) {
         return taskService.getTasks(pageable, userId);
     }
 
@@ -34,19 +34,21 @@ public class TaskController {
 
     @PostMapping("/task")
     public Task addTask(@RequestBody Task task, @AuthenticationPrincipal Long userId) {
-      return taskService.addTask(task ,userId);
+        return taskService.addTask(task, userId);
     }
+
     @PutMapping("/task/{taskId}")
     public Task updateTask(@RequestBody Task task, @PathVariable Long taskId) {
-        return taskService.updateTask(task ,taskId);
+        return taskService.updateTask(task, taskId);
     }
+
     @PatchMapping("/task/{taskId}")
-    public Task changeStatus(@PathVariable Long taskId,@RequestParam boolean completed) {
+    public Task changeStatus(@PathVariable Long taskId, @RequestParam boolean completed) {
         return taskService.changeStatus(taskId, completed);
     }
 
     @DeleteMapping("/task/{taskId}")
     public void deleteTask(@PathVariable Long taskId) {
-         taskService.deleteTaskById(taskId);
+        taskService.deleteTaskById(taskId);
     }
 }

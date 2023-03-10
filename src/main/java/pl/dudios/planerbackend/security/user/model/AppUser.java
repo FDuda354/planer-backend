@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.dudios.planerbackend.invoice.model.Invoice;
 import pl.dudios.planerbackend.task.model.Task;
 
 import javax.persistence.CascadeType;
@@ -48,10 +49,12 @@ public class AppUser implements Serializable {
     private String image;
     private String hash;
     private LocalDateTime HashDate;
-
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "userid")
     private List<Task> tasks;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "userid")
+    private List<Invoice> invoices;
 
 
 }
