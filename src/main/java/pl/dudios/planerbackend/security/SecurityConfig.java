@@ -30,8 +30,8 @@ public class SecurityConfig {
     ) throws Exception {
 
         http.authorizeHttpRequests(auth -> auth
-                .antMatchers("/admin/**").hasRole(Role.ROLE_ADMIN.getName())
-                .antMatchers(HttpMethod.GET, "/orders").authenticated()
+//                .antMatchers("/admin/**").hasRole(Role.ROLE_ADMIN.getName())
+//                .antMatchers(HttpMethod.GET, "/orders").authenticated()
                 .anyRequest().permitAll()
         );
 

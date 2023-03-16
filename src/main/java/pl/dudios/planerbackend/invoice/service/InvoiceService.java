@@ -51,7 +51,7 @@ public class InvoiceService {
                 .vat(invoice.getVat())
                 .title(invoice.getTitle())
                 .placeDate(LocalDateTime.now())
-                .slug(invoice.getSlug())
+                .slug(SlugifyUtils.slugifySlug(invoice.getSlug()))
                 .userId(userId)
                 .build());
     }
@@ -69,7 +69,7 @@ public class InvoiceService {
         invoiceToUpdate.setVat(invoice.getVat());
         invoiceToUpdate.setTitle(invoice.getTitle());
         invoiceToUpdate.setPlaceDate(LocalDateTime.now());
-        invoiceToUpdate.setSlug(invoice.getSlug());
+        invoiceToUpdate.setSlug(SlugifyUtils.slugifySlug(invoice.getSlug()));
         invoiceToUpdate.setPriceNetto(invoice.getPriceBrutto().subtract(invoice.getPriceBrutto().multiply(invoice.getVat().movePointLeft(2))));
         return invoiceRepo.save(invoiceToUpdate);
     }
@@ -94,24 +94,24 @@ public class InvoiceService {
         FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
         return resourceLoader.getResource(UPLOAD_DIR + fileName);
     }
-
-    public Resource serveFile(String fileName) {
-        FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
-        Resource file = resourceLoader.getResource(UPLOAD_DIR + fileName);
-        System.out.println("elooooo3");
-        String contentType = "";
-        try {
-            contentType = Files.probeContentType(Path.of(file.getURI()));
-            System.out.println("elooooo4");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (contentType != null && (contentType.equals("image/png") || contentType.equals("image/jpg") || contentType.equals("application/pdf"))) {
-            return file;
-        } else {
-            throw new RuntimeException("Invalid file type");
-        }
-    }
+//TODO: wtf is this??
+//    public Resource serveFile(String fileName) {
+//        FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
+//        Resource file = resourceLoader.getResource(UPLOAD_DIR + fileName);
+//        System.out.println("elooooo3");
+//        String contentType = "";
+//        try {
+//            contentType = Files.probeContentType(Path.of(file.getURI()));
+//            System.out.println("elooooo4");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        if (contentType != null && (contentType.equals("image/png") || contentType.equals("image/jpg") || contentType.equals("application/pdf"))) {
+//            return file;
+//        } else {
+//            throw new RuntimeException("Invalid file type");
+//        }
+//    }
 
 //    public String uploadInvoiceImage(String fileName, InputStream inputStream) {
 //        String newFileName = SlugifyUtils.slugifyFileName(fileName);
