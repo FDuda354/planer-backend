@@ -80,8 +80,8 @@ public class InvoiceService {
 
     public String uploadInvoiceImage(String fileName, InputStream inputStream) {
         String newFileName = SlugifyUtils.slugifyFileName(fileName);
-        newFileName = ExistingFileRenameUtils.renameFileIfExists(Path.of(UPLOAD_DIR), newFileName);
-        Path filePath = Paths.get(UPLOAD_DIR).resolve(newFileName);
+        newFileName = ExistingFileRenameUtils.renameFileIfExists(Path.of("/opt/app"+UPLOAD_DIR), newFileName);
+        Path filePath = Paths.get("/opt/app"+UPLOAD_DIR).resolve(newFileName);
         try (OutputStream outputStream = Files.newOutputStream(filePath)) {
             inputStream.transferTo(outputStream);
         } catch (IOException e) {
@@ -94,39 +94,26 @@ public class InvoiceService {
         FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
         return resourceLoader.getResource(UPLOAD_DIR + fileName);
     }
-//TODO: wtf is this??
-//    public Resource serveFile(String fileName) {
-//        FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
-//        Resource file = resourceLoader.getResource(UPLOAD_DIR + fileName);
-//        System.out.println("elooooo3");
-//        String contentType = "";
-//        try {
-//            contentType = Files.probeContentType(Path.of(file.getURI()));
-//            System.out.println("elooooo4");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        if (contentType != null && (contentType.equals("image/png") || contentType.equals("image/jpg") || contentType.equals("application/pdf"))) {
-//            return file;
-//        } else {
-//            throw new RuntimeException("Invalid file type");
-//        }
-//    }
 
-//    public String uploadInvoiceImage(String fileName, InputStream inputStream) {
-//        String newFileName = SlugifyUtils.slugifyFileName(fileName);
-//        newFileName = ExistingFileRenameUtils.renameFileIfExists(Path.of("/opt/app"+UPLOAD_DIR), newFileName);
-//        Path filePath = Paths.get("/opt/app"+UPLOAD_DIR).resolve(newFileName);
-//        try (OutputStream outputStream = Files.newOutputStream(filePath)) {
-//            inputStream.transferTo(outputStream);
-//        } catch (IOException e) {
-//            throw new RuntimeException("Cant save file", e);
-//        }
-//        return newFileName;
-//    }
-//
-//    public Resource serveFiles(String fileName) {
-//        FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
-//        return resourceLoader.getResource(UPLOAD_DIR + fileName);
-//    }
+
+
+
+//TODO: what is this??
+    public Resource serveFile(String fileName) {
+        FileSystemResourceLoader resourceLoader = new FileSystemResourceLoader();
+        Resource file = resourceLoader.getResource(UPLOAD_DIR + fileName);
+        String contentType = "";
+        try {
+            contentType = Files.probeContentType(Path.of(file.getURI()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (contentType != null && (contentType.equals("image/png") || contentType.equals("image/jpg") || contentType.equals("application/pdf"))) {
+            return file;
+        } else {
+            throw new RuntimeException("Invalid file type");
+        }
+    }
+
+
 }
