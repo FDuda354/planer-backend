@@ -13,12 +13,12 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import pl.dudios.planerbackend.invoice.factory.model.FInvoice;
-import pl.dudios.planerbackend.invoice.factory.model.FInvoiceItems;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -82,11 +82,6 @@ public class InvoiceFactoryService {
 
         contentStream.setFont(PDType1Font.HELVETICA, fontSizeContent);
 
-
-        //Start writing the table like this:
-        //Product name             Quantity   Price (Brutto)   VAT    Price (Netto)
-        //Product 1                1          100              23%    77
-        //Product 2                2          200              23%    154
         contentStream.showText("Product name");
         contentStream.newLineAtOffset(+100, 0);
         contentStream.showText("Quantity");
@@ -118,7 +113,7 @@ public class InvoiceFactoryService {
         contentStream.showText("Total price (Brutto): " + brutto);
 
         contentStream.newLineAtOffset(0, -50);
-        contentStream.showText( invoice.getCompanyName());
+        contentStream.showText(invoice.getCompanyName());
         contentStream.newLineAtOffset(0, -20);
         contentStream.showText(invoice.getCompanyAddress() + " " + invoice.getCompanyZipCode());
         contentStream.newLineAtOffset(0, -20);
@@ -142,12 +137,15 @@ public class InvoiceFactoryService {
         return new InputStreamResource(new ByteArrayInputStream(pdfBytes));
     }
 
-    private static BigDecimal getTotalBrutto(FInvoice invoice) {
+    private BigDecimal getTotalBrutto(FInvoice invoice) {
         return invoice.getItems().stream()
-                .map(FInvoiceItems::getProductPriceBrutto).reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(item -> item.getProductPriceBrutto().multiply(new BigDecimal(item.getProductQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+
     private BigDecimal getTotalNetto(BigDecimal priceBrutto, BigDecimal vat) {
-        return priceBrutto.subtract(priceBrutto.multiply(vat.movePointLeft(2)));
+        return priceBrutto.divide((vat.movePointLeft(2).add(BigDecimal.ONE)), RoundingMode.HALF_UP);
     }
+
 }

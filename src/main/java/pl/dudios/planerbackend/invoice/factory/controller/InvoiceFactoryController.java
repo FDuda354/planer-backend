@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.dudios.planerbackend.invoice.factory.model.FInvoice;
 import pl.dudios.planerbackend.invoice.factory.service.InvoiceFactoryService;
-import pl.dudios.planerbackend.invoice.model.Invoice;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -27,7 +26,7 @@ public class InvoiceFactoryController {
     public ResponseEntity<Resource> createInvoice(@RequestBody FInvoice invoice, @AuthenticationPrincipal Long userId) throws IOException {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "invo"+ UUID.randomUUID()+ ".pdf");
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "invo" + UUID.randomUUID() + ".pdf");
         return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(invoiceFactoryService.createInvoice(invoice, userId));
 
     }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.dudios.planerbackend.calendar.evnet.model.Event;
 import pl.dudios.planerbackend.invoice.model.Invoice;
 import pl.dudios.planerbackend.task.model.Task;
 
@@ -55,6 +56,9 @@ public class AppUser implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "userid")
     private List<Invoice> invoices;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "userid")
+    private List<Event> events;
 
 
 }

@@ -30,4 +30,5 @@ public class FInvoice {
     private String paymentMethod;
     private List<FInvoiceItems> items;
 
+
 }

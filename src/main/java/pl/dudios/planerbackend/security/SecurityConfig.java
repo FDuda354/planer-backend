@@ -3,14 +3,12 @@ package pl.dudios.planerbackend.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
-import pl.dudios.planerbackend.security.user.model.Role;
 
 
 @Configuration
@@ -32,7 +30,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
 //                .antMatchers("/admin/**").hasRole(Role.ROLE_ADMIN.getName())
 //                .antMatchers(HttpMethod.GET, "/orders").authenticated()
-                .anyRequest().permitAll()
+                        .anyRequest().permitAll()
         );
 
         http.csrf().disable();
